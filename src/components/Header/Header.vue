@@ -1,5 +1,5 @@
 <template>
-  <header id="nav">
+  <header>
     <ul>
       <template v-for="headerLink in headerLinks">
         <HeaderLink :data="headerLink" v-bind:key="headerLink.path"></HeaderLink>
@@ -29,13 +29,15 @@ export default class Header extends Vue {
 </script>
 
 <style lang="scss">
-  #nav {
+  header {
     padding: 10px;
     background-color: rgb(38, 38, 38);
 
     ul {
       display: flex;
       list-style-type: none;
+      max-width: 500px;
+      margin: 1em auto;
 
       li {
         flex: auto;
