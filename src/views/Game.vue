@@ -16,7 +16,6 @@ import CardType from "@/types/Card";
 })
 export default class Game extends Vue {
   private gridSize = 16;
-
   private allCards: CardType[] = [];
 
   // Preload images so they don't get double loaded afterwards

@@ -25,36 +25,46 @@ export default class Field extends Vue {
   @Prop() private cards!: CardType[];
   private selectedCard = -1;
   private canShowCard = true;
+  private moveCount = 0;
 
+  // Check state of board after move
   checkBoard(cardID: number): void {
+    // Add another move
+    this.moveCount++;
+
+    // Dissalow player to click another card
     this.canShowCard = false;
+
+    // Get currently selected card
     const currentlySelectedCardKey = this.getSelectedCardById(cardID);
     const currentlySelectedCard = this.cards[currentlySelectedCardKey];
 
     if (this.selectedCard !== -1) {
+      // If there is already a selected card, get new selected card
       const oldSelectedCardKey = this.getSelectedCardById(this.selectedCard);
       const oldSelectedCard = this.cards[oldSelectedCardKey];
 
+      // Check if selected card value is the same as old selected card
+      // In other words - are the cards the same
       if (oldSelectedCard.value === currentlySelectedCard.value) {
-        // 
+        // Visibly remove cards from the field after 1 second
         setTimeout(() => {
-          this.cards[oldSelectedCardKey].removed = true;
-          this.cards[currentlySelectedCardKey].removed = true;
-
-          this.selectedCard = -1;
-          this.canShowCard = true;
+          this.removeCards(oldSelectedCardKey, currentlySelectedCardKey);
+          this.checkIfGameDone();
         }, 1000);
 
       } else {
-        //
+        // If the cards are not the same, hide them after 2 seconds
         setTimeout(() => this.hideCards(), 2000);
       }
     } else {
+      // If this is the first selected card, save it and allow user to select another card
       this.selectedCard = currentlySelectedCard?.id || 0;
       this.canShowCard = true;
     }
   }
 
+  // Get card key in array by card's ID
   getSelectedCardById(id: number): number {
     let selectedCardKey = -1;
     
@@ -67,6 +77,21 @@ export default class Field extends Vue {
     return selectedCardKey;
   }
 
+  checkIfGameDone(): void {
+    // Check if game is finished
+  }
+
+  // Soft remove cards from array
+  removeCards(key1: number, key2: number): void {
+    this.cards[key1].removed = true;
+    this.cards[key2].removed = true;
+
+    // Allow user to start new move
+    this.selectedCard = -1;
+    this.canShowCard = true;
+  }
+
+  // Hide shown cards from field
   hideCards(): void {
     this.cards.forEach((card) => {
         if (card.shown) {
@@ -74,6 +99,7 @@ export default class Field extends Vue {
         }
     });
 
+    // Allow user to start new move
     this.selectedCard = -1;
     this.canShowCard = true;
   }
@@ -81,11 +107,11 @@ export default class Field extends Vue {
 </script>
 
 <style lang="scss" scoped>
-    .field {
-        max-width: 328px;
-        margin: 0 auto;
+  .field {
+    max-width: 328px;
+    margin: 0 auto;
 
-        display: flex;
-        flex-wrap: wrap;
-    }
+    display: flex;
+    flex-wrap: wrap;
+  }
 </style>

@@ -10,6 +10,6 @@ import HeaderLink from "@/types/HeaderLink";
 
 @Component
 export default class Header extends Vue {
-    @Prop() private data!: HeaderLink;
+  @Prop() private data!: HeaderLink;
 }
 </script>
