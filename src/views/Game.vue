@@ -1,6 +1,14 @@
 <template>
   <div class="game">
-    <Field :cards="allCards"></Field>
+    <Field 
+      :cards="allCards"
+      @gameFinished="gameFinished"
+      v-if="!showResults"
+    ></Field>
+    <div v-else class="results">
+      <span>You finished the game in {{ moveCount }} moves!</span>
+      <button @click="startNewGame">Start new game</button>
+    </div>
   </div>
 </template>
 
@@ -17,6 +25,8 @@ import CardType from "@/types/Card";
 export default class Game extends Vue {
   private gridSize = 16;
   private allCards: CardType[] = [];
+  private moveCount = 0;
+  private showResults = false;
 
   // Preload images so they don't get double loaded afterwards
   private images = [
@@ -47,6 +57,7 @@ export default class Game extends Vue {
 
   shuffleCards(): void {
     // Shuffle array of cards
+    this.allCards = this.allCards.sort(() => Math.random() - 0.5);
   }
 
   generateCard(id: number, value: number, imageUrl: string): CardType {
@@ -59,5 +70,55 @@ export default class Game extends Vue {
       removed: false,
     };
   }
+
+  gameFinished(moveCount: number) {
+    this.resetAllCards();
+
+    this.moveCount = moveCount;
+    this.showResults = true;
+  }
+
+  resetAllCards() {
+    this.allCards.forEach((card) => {
+      card.shown = false;
+      card.removed = false;
+    });
+  }
+
+  startNewGame() {
+    this.shuffleCards();
+    this.moveCount = 0;
+    this.showResults = false;
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+  .game {
+    position: relative;
+    height: calc(100vh - 70px);
+
+    .results {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      span {
+        display: block;
+        padding-bottom: 20px;
+        font-weight: bold;
+        color: black;
+      }
+
+      button {
+        border: none;
+        border-radius: 10px;
+
+        background-color: white;
+        padding: 10px 20px;
+      }
+    }
+  }
+</style>

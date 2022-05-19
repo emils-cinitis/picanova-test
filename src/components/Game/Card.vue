@@ -5,12 +5,14 @@
     v-if="!!data" 
     @click="toggleCard"
   >
-    <img
-      :class="{ shown: showImage }"
-      :src="data.imageUrl" 
-      :alt="data.value" 
-      v-if="!hideCardData" 
-    />
+    <div class="image-wrapper">
+      <img
+        :class="{ shown: showImage }"
+        :src="data.imageUrl" 
+        :alt="data.value" 
+        v-if="!hideCardData" 
+      />
+    </div>
   </div>
 </template>
 
@@ -46,7 +48,7 @@ export default class Field extends Vue {
       if (!value) {
         setTimeout(() => {
           this.hideCardData = true;
-        }, 1000);
+        }, 900);
       }
     }, 10);
   }
@@ -55,25 +57,33 @@ export default class Field extends Vue {
 
 <style lang="scss" scoped>
     .card {
-        flex: calc(25% - 6px);
-        max-width: calc(25% - 6px);
-        border: 1px solid black;
+        flex: calc(25% - 4px);
         margin: 2px;
-
-        height: 103px;
 
         &.removed {
             transition: opacity 1s linear;
             opacity: 0;
         }
 
-        img {
-            transition: transform 1s;
-            transform: rotateY(120deg);
-            backface-visibility: hidden;
+        .image-wrapper {
+            position: relative;
+            padding-top: 137.333%;
+            background-color: white;
+            cursor: pointer;
 
-            &.shown {
-                transform: rotateY(0);
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+
+                transition: transform 1s;
+                transform: rotateY(120deg);
+                backface-visibility: hidden;
+
+                &.shown {
+                    transform: rotateY(0);
+                }
             }
         }
     }

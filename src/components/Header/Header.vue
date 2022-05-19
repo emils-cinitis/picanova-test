@@ -20,10 +20,36 @@ import HeaderLink from "./HeaderLink.vue";
 })
 export default class Header extends Vue {
   headerLinks: HeaderLinkType[] = [
-    { name: 'Home', path: 'home' },
-    { name: 'The Game', path: 'game' },
-    { name: 'Instructions', path: 'instrucitons' },
-    { name: 'About us', path: 'about-us' }
+    { name: 'Home', path: '/' },
+    { name: 'The Game', path: '/game' },
+    { name: 'Instructions', path: '/instrucitons' },
+    { name: 'About us', path: '/about-us' }
   ];
 }
 </script>
+
+<style lang="scss">
+  #nav {
+    padding: 10px;
+    background-color: rgb(38, 38, 38);
+
+    ul {
+      display: flex;
+      list-style-type: none;
+
+      li {
+        flex: auto;
+
+        a {
+          font-weight: bold;          
+          color: white;
+          text-decoration: none;
+
+          &.router-link-exact-active {
+            color: #42b983;
+          }
+        }
+      }
+    }
+  }
+</style>

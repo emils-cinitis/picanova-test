@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Watch, Vue } from "vue-property-decorator";
 import Card from "./Card.vue";
 import CardType from "@/types/Card";
 
@@ -29,9 +29,6 @@ export default class Field extends Vue {
 
   // Check state of board after move
   checkBoard(cardID: number): void {
-    // Add another move
-    this.moveCount++;
-
     // Dissalow player to click another card
     this.canShowCard = false;
 
@@ -40,6 +37,9 @@ export default class Field extends Vue {
     const currentlySelectedCard = this.cards[currentlySelectedCardKey];
 
     if (this.selectedCard !== -1) {
+      // Add another move
+      this.moveCount++;
+
       // If there is already a selected card, get new selected card
       const oldSelectedCardKey = this.getSelectedCardById(this.selectedCard);
       const oldSelectedCard = this.cards[oldSelectedCardKey];
@@ -79,6 +79,17 @@ export default class Field extends Vue {
 
   checkIfGameDone(): void {
     // Check if game is finished
+    let gameFinished = true;
+
+    this.cards.forEach((card) => {
+      if (!card.removed) {
+        gameFinished = false;
+      }
+    });
+
+    if (gameFinished) {
+      this.$emit('gameFinished', this.moveCount);
+    }
   }
 
   // Soft remove cards from array
@@ -99,16 +110,23 @@ export default class Field extends Vue {
         }
     });
 
-    // Allow user to start new move
-    this.selectedCard = -1;
-    this.canShowCard = true;
+    setTimeout(() => {
+      // Allow user to start new move
+      this.selectedCard = -1;
+      this.canShowCard = true;
+    }, 900);
+  }
+
+  @Watch('cards')
+  onDataChanged(value: CardType[]) {
+    console.log(value);
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .field {
-    max-width: 328px;
+    max-width: 600px;
     margin: 0 auto;
 
     display: flex;
