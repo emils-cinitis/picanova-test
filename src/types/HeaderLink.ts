@@ -1,4 +1,4 @@
 export default interface HeaderLink {
-    name: String;
-    path: String;
-};
+  name: string;
+  path: string;
+}

@@ -47,13 +47,12 @@ export default class Field extends Vue {
       // Check if selected card value is the same as old selected card
       // In other words - are the cards the same
       if (oldSelectedCard.value === currentlySelectedCard.value) {
-        this.$emit('gainedScore');
+        this.$emit("gainedScore");
         // Visibly remove cards from the field after 1 second
         setTimeout(() => {
           this.removeCards(oldSelectedCardKey, currentlySelectedCardKey);
           this.checkIfGameDone();
         }, 1000);
-
       } else {
         // If the cards are not the same, hide them after 2 seconds
         setTimeout(() => this.hideCards(), 2000);
@@ -68,7 +67,7 @@ export default class Field extends Vue {
   // Get card key in array by card's ID
   getSelectedCardById(id: number): number {
     let selectedCardKey = -1;
-    
+
     this.cards.forEach((card, key) => {
       if (card.id === id) {
         selectedCardKey = key;
@@ -89,7 +88,7 @@ export default class Field extends Vue {
     });
 
     if (gameFinished) {
-      this.$emit('gameFinished', this.moveCount);
+      this.$emit("gameFinished", this.moveCount);
     }
   }
 
@@ -106,9 +105,9 @@ export default class Field extends Vue {
   // Hide shown cards from field
   hideCards(): void {
     this.cards.forEach((card) => {
-        if (card.shown) {
-          card.shown = false;
-        }
+      if (card.shown) {
+        card.shown = false;
+      }
     });
 
     setTimeout(() => {
@@ -121,13 +120,13 @@ export default class Field extends Vue {
 </script>
 
 <style lang="scss" scoped>
-  .field {
-    flex: 1;
+.field {
+  flex: 1;
 
-    max-width: 550px;
-    margin: auto;
+  max-width: 550px;
+  margin: auto;
 
-    display: flex;
-    flex-wrap: wrap;
-  }
+  display: flex;
+  flex-wrap: wrap;
+}
 </style>

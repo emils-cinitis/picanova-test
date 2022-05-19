@@ -1,7 +1,7 @@
 <template>
-    <li>
-        <router-link :to="data.path">{{data.name}}</router-link>
-    </li>
+  <li>
+    <router-link :to="data.path">{{ data.name }}</router-link>
+  </li>
 </template>
 
 <script lang="ts">

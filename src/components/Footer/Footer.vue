@@ -6,15 +6,15 @@
 </template>
 
 <style lang="scss" scoped>
-  footer {
-    width: 100%;
-    padding: 5px 0;
+footer {
+  width: 100%;
+  padding: 5px 0;
 
-    background-color: rgb(38, 38, 38);
-    
-    span {
-      display: block;
-      font-size: 12px;
-    }
+  background-color: rgb(38, 38, 38);
+
+  span {
+    display: block;
+    font-size: 12px;
   }
+}
 </style>

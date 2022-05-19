@@ -9,39 +9,39 @@
 </template>
 
 <style lang="scss" scoped>
-  .home {
-    position: relative;
+.home {
+  position: relative;
 
-    max-width: 90%;
-    min-height: calc(100vh - 108px);
-    margin: 0 auto;
+  max-width: 90%;
+  min-height: calc(100vh - 108px);
+  margin: 0 auto;
 
-    .container {
-      position: absolute;
-      width: 100%;
-      top: 50%;
-      transform: translateY(-50%);
+  .container {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
 
-      h1 {
-        margin-top: 0;
-      }
+    h1 {
+      margin-top: 0;
+    }
 
-      p {
-        font-size: 20px;
-      }
+    p {
+      font-size: 20px;
+    }
 
-      span {
-        display: block;
+    span {
+      display: block;
 
-        margin-top: 60px;
+      margin-top: 60px;
 
-        font-size: 14px;
-        text-align: right;
+      font-size: 14px;
+      text-align: right;
 
-        @media (max-width: 768px) {
-          font-size: 10px;
-        }
+      @media (max-width: 768px) {
+        font-size: 10px;
       }
     }
   }
+}
 </style>

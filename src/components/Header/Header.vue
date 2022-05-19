@@ -3,7 +3,11 @@
     <Burger @burgerOpen="toggleNavigation"></Burger>
     <ul :class="{ 'open-mobile': navigationOpen }">
       <CloseBurger @burgerClose="toggleNavigation"></CloseBurger>
-      <HeaderLink :data="headerLink" v-bind:key="headerLink.path" v-for="headerLink in headerLinks"></HeaderLink>
+      <HeaderLink
+        :data="headerLink"
+        v-bind:key="headerLink.path"
+        v-for="headerLink in headerLinks"
+      ></HeaderLink>
     </ul>
   </header>
 </template>
@@ -20,78 +24,78 @@ import CloseBurger from "./CloseBurger.vue";
     HeaderLink,
     Burger,
     CloseBurger,
-  }
+  },
 })
 export default class Header extends Vue {
   private headerLinks: HeaderLinkType[] = [
-    { name: 'Home', path: '/' },
-    { name: 'The Game', path: '/game' },
-    { name: 'Instructions', path: '/instructions' },
-    { name: 'About us', path: '/about-us' }
+    { name: "Home", path: "/" },
+    { name: "The Game", path: "/game" },
+    { name: "Instructions", path: "/instructions" },
+    { name: "About us", path: "/about-us" },
   ];
   private navigationOpen = false;
 
-  toggleNavigation() {
+  toggleNavigation(): void {
     this.navigationOpen = !this.navigationOpen;
   }
 }
 </script>
 
 <style lang="scss">
-  header {
-    padding: 10px;
-    background-color: rgb(38, 38, 38);
+header {
+  padding: 10px;
+  background-color: rgb(38, 38, 38);
 
+  @media (max-width: 768px) {
+    padding: 20px 10px;
+  }
+
+  ul {
     @media (max-width: 768px) {
-      padding: 20px 10px;
-    }
-
-    ul {
-      @media (max-width: 768px) {
-        &:not(.open-mobile) {
-          left: -1000px;
-        }
-
-        transition: left 150ms linear;
-
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(100% - 100px);
-        max-width: 1000px;
-
-        background-color: rgb(38, 38, 38);
-
-        padding: 40px 50px 20px;
-        margin: 0;
-
-        z-index: 1;
-
-        li {
-          font-size: 26px;
-          margin-bottom: 20px;
-        }
+      &:not(.open-mobile) {
+        left: -1000px;
       }
-      
-      display: flex;
-      list-style-type: none;
-      max-width: 500px;
-      margin: 1em auto;
+
+      transition: left 150ms linear;
+
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% - 100px);
+      max-width: 1000px;
+
+      background-color: rgb(38, 38, 38);
+
+      padding: 40px 50px 20px;
+      margin: 0;
+
+      z-index: 1;
 
       li {
-        flex: auto;
+        font-size: 26px;
+        margin-bottom: 20px;
+      }
+    }
 
-        a {
-          font-weight: bold;          
-          color: white;
-          text-decoration: none;
+    display: flex;
+    list-style-type: none;
+    max-width: 500px;
+    margin: 1em auto;
 
-          &.router-link-exact-active {
-            color: #42b983;
-          }
+    li {
+      flex: auto;
+
+      a {
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+
+        &.router-link-exact-active {
+          color: #42b983;
         }
       }
     }
   }
+}
 </style>

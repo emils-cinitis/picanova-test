@@ -6,32 +6,32 @@
 </template>
 
 <style lang="scss" scoped>
-  .burger {
-    @media (min-width: 768px) {
-        display: none;
-    }
+.burger {
+  @media (min-width: 768px) {
+    display: none;
+  }
 
+  position: absolute;
+  width: 20px;
+  height: 20px;
+
+  top: 10px;
+  left: 10px;
+
+  .burger-line {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 100%;
+    height: 4px;
+    background-color: white;
+    left: 0;
+    top: 50%;
 
-    top: 10px;
-    left: 10px;
-
-    .burger-line {
-      position: absolute;
-      width: 100%;
-      height: 4px;
-      background-color: white;
-      left: 0;
-      top: 50%;
-
-      &-1 {
-        transform: rotate(45deg);
-      }
-      &-2 {
-        transform: rotate(-45deg);
-      }
+    &-1 {
+      transform: rotate(45deg);
+    }
+    &-2 {
+      transform: rotate(-45deg);
     }
   }
+}
 </style>

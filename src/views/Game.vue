@@ -1,7 +1,7 @@
 <template>
   <div class="game">
     <template v-if="!showResults">
-      <Field 
+      <Field
         :cards="allCards"
         @gameFinished="gameFinished"
         @gainedScore="gainedScore"
@@ -14,8 +14,6 @@
       <span>You finished the game in {{ moveCount }} moves!</span>
       <button @click="startNewGame">Start new game</button>
     </div>
-
-
   </div>
 </template>
 
@@ -79,25 +77,25 @@ export default class Game extends Vue {
     };
   }
 
-  gainedScore() {
+  gainedScore(): void {
     this.score++;
   }
 
-  gameFinished(moveCount: number) {
+  gameFinished(moveCount: number): void {
     this.resetAllCards();
 
     this.moveCount = moveCount;
     this.showResults = true;
   }
 
-  resetAllCards() {
+  resetAllCards(): void {
     this.allCards.forEach((card) => {
       card.shown = false;
       card.removed = false;
     });
   }
 
-  startNewGame() {
+  startNewGame(): void {
     this.shuffleCards();
     this.moveCount = 0;
     this.showResults = false;
@@ -106,43 +104,43 @@ export default class Game extends Vue {
 </script>
 
 <style lang="scss" scoped>
-  .game {
-    position: relative;
-    height: calc(100vh - 108px);
+.game {
+  position: relative;
+  height: calc(100vh - 108px);
 
-    display: flex;
+  display: flex;
 
-    .results {
-      position: absolute;
-      z-index: 1;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+  .results {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-      span {
-        display: block;
-        padding-bottom: 20px;
-        font-weight: bold;
-        color: black;
-      }
-
-      button {
-        border: none;
-        border-radius: 10px;
-
-        background-color: white;
-        padding: 10px 20px;
-      }
+    span {
+      display: block;
+      padding-bottom: 20px;
+      font-weight: bold;
+      color: black;
     }
 
-    .score-container {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+    button {
+      border: none;
+      border-radius: 10px;
 
-      span {
-        font-size: 22px;
-      }
+      background-color: white;
+      padding: 10px 20px;
     }
   }
+
+  .score-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    span {
+      font-size: 22px;
+    }
+  }
+}
 </style>
