@@ -1,4 +1,4 @@
-# picanova-test
+# Created for Picanova Baltics by Emīls Cinītis
 
 ## Project setup
 ```
@@ -27,3 +27,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### All assets used are stock images
