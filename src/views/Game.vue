@@ -1,14 +1,21 @@
 <template>
   <div class="game">
-    <Field 
-      :cards="allCards"
-      @gameFinished="gameFinished"
-      v-if="!showResults"
-    ></Field>
+    <template v-if="!showResults">
+      <Field 
+        :cards="allCards"
+        @gameFinished="gameFinished"
+        @gainedScore="gainedScore"
+      ></Field>
+      <div class="score-container">
+        <span>Score: {{ score }}</span>
+      </div>
+    </template>
     <div v-else class="results">
       <span>You finished the game in {{ moveCount }} moves!</span>
       <button @click="startNewGame">Start new game</button>
     </div>
+
+
   </div>
 </template>
 
@@ -26,18 +33,19 @@ export default class Game extends Vue {
   private gridSize = 16;
   private allCards: CardType[] = [];
   private moveCount = 0;
+  private score = 0;
   private showResults = false;
 
   // Preload images so they don't get double loaded afterwards
   private images = [
-    require("@/assets/1.png"),
-    require("@/assets/2.png"),
-    require("@/assets/3.png"),
-    require("@/assets/4.png"),
-    require("@/assets/5.png"),
-    require("@/assets/6.png"),
-    require("@/assets/7.png"),
-    require("@/assets/8.png"),
+    require("@/assets/cards/1.png"),
+    require("@/assets/cards/2.png"),
+    require("@/assets/cards/3.png"),
+    require("@/assets/cards/4.png"),
+    require("@/assets/cards/5.png"),
+    require("@/assets/cards/6.png"),
+    require("@/assets/cards/7.png"),
+    require("@/assets/cards/8.png"),
   ];
 
   mounted(): void {
@@ -71,6 +79,10 @@ export default class Game extends Vue {
     };
   }
 
+  gainedScore() {
+    this.score++;
+  }
+
   gameFinished(moveCount: number) {
     this.resetAllCards();
 
@@ -96,7 +108,9 @@ export default class Game extends Vue {
 <style lang="scss" scoped>
   .game {
     position: relative;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 108px);
+
+    display: flex;
 
     .results {
       position: absolute;
@@ -118,6 +132,16 @@ export default class Game extends Vue {
 
         background-color: white;
         padding: 10px 20px;
+      }
+    }
+
+    .score-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+
+      span {
+        font-size: 22px;
       }
     }
   }

@@ -56,35 +56,35 @@ export default class Field extends Vue {
 </script>
 
 <style lang="scss" scoped>
-    .card {
-        flex: calc(25% - 4px);
-        margin: 2px;
+  .card {
+    flex: calc(25% - 4px);
+    margin: 2px;
 
-        &.removed {
-            transition: opacity 1s linear;
-            opacity: 0;
-        }
-
-        .image-wrapper {
-            position: relative;
-            padding-top: 137.333%;
-            background-color: white;
-            cursor: pointer;
-
-            img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-
-                transition: transform 1s;
-                transform: rotateY(120deg);
-                backface-visibility: hidden;
-
-                &.shown {
-                    transform: rotateY(0);
-                }
-            }
-        }
+    &.removed {
+      transition: opacity 1s linear;
+      opacity: 0;
     }
+
+    .image-wrapper {
+      position: relative;
+      padding-top: 137.333%;
+      background-color: white;
+      cursor: pointer;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+
+        transition: transform 1s;
+        transform: rotateY(120deg);
+        backface-visibility: hidden;
+
+        &.shown {
+          transform: rotateY(0);
+        }
+      }
+    }
+  }
 </style>

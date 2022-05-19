@@ -1,9 +1,9 @@
 <template>
   <header>
-    <ul>
-      <template v-for="headerLink in headerLinks">
-        <HeaderLink :data="headerLink" v-bind:key="headerLink.path"></HeaderLink>
-      </template>
+    <Burger @burgerOpen="toggleNavigation"></Burger>
+    <ul :class="{ 'open-mobile': navigationOpen }">
+      <CloseBurger @burgerClose="toggleNavigation"></CloseBurger>
+      <HeaderLink :data="headerLink" v-bind:key="headerLink.path" v-for="headerLink in headerLinks"></HeaderLink>
     </ul>
   </header>
 </template>
@@ -12,19 +12,28 @@
 import { Component, Vue } from "vue-property-decorator";
 import HeaderLinkType from "@/types/HeaderLink";
 import HeaderLink from "./HeaderLink.vue";
+import Burger from "./Burger.vue";
+import CloseBurger from "./CloseBurger.vue";
 
 @Component({
   components: {
-    HeaderLink
+    HeaderLink,
+    Burger,
+    CloseBurger,
   }
 })
 export default class Header extends Vue {
-  headerLinks: HeaderLinkType[] = [
+  private headerLinks: HeaderLinkType[] = [
     { name: 'Home', path: '/' },
     { name: 'The Game', path: '/game' },
-    { name: 'Instructions', path: '/instrucitons' },
+    { name: 'Instructions', path: '/instructions' },
     { name: 'About us', path: '/about-us' }
   ];
+  private navigationOpen = false;
+
+  toggleNavigation() {
+    this.navigationOpen = !this.navigationOpen;
+  }
 }
 </script>
 
@@ -33,7 +42,38 @@ export default class Header extends Vue {
     padding: 10px;
     background-color: rgb(38, 38, 38);
 
+    @media (max-width: 768px) {
+      padding: 20px 10px;
+    }
+
     ul {
+      @media (max-width: 768px) {
+        &:not(.open-mobile) {
+          left: -1000px;
+        }
+
+        transition: left 150ms linear;
+
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(100% - 100px);
+        max-width: 1000px;
+
+        background-color: rgb(38, 38, 38);
+
+        padding: 40px 50px 20px;
+        margin: 0;
+
+        z-index: 1;
+
+        li {
+          font-size: 26px;
+          margin-bottom: 20px;
+        }
+      }
+      
       display: flex;
       list-style-type: none;
       max-width: 500px;

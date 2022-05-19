@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Watch, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import Card from "./Card.vue";
 import CardType from "@/types/Card";
 
@@ -47,6 +47,7 @@ export default class Field extends Vue {
       // Check if selected card value is the same as old selected card
       // In other words - are the cards the same
       if (oldSelectedCard.value === currentlySelectedCard.value) {
+        this.$emit('gainedScore');
         // Visibly remove cards from the field after 1 second
         setTimeout(() => {
           this.removeCards(oldSelectedCardKey, currentlySelectedCardKey);
@@ -116,18 +117,15 @@ export default class Field extends Vue {
       this.canShowCard = true;
     }, 900);
   }
-
-  @Watch('cards')
-  onDataChanged(value: CardType[]) {
-    console.log(value);
-  }
 }
 </script>
 
 <style lang="scss" scoped>
   .field {
-    max-width: 600px;
-    margin: 0 auto;
+    flex: 1;
+
+    max-width: 550px;
+    margin: auto;
 
     display: flex;
     flex-wrap: wrap;

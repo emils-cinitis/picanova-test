@@ -8,33 +8,40 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-
-@Component
-export default class Home extends Vue {}
-</script>
-
 <style lang="scss" scoped>
   .home {
-    margin: 10% auto 0;
+    position: relative;
+
     max-width: 90%;
+    min-height: calc(100vh - 108px);
+    margin: 0 auto;
 
-    h1 {
-      margin-top: 0;
-    }
+    .container {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
 
-    p {
-      font-size: 20px;
-    }
+      h1 {
+        margin-top: 0;
+      }
 
-    span {
-      display: block;
+      p {
+        font-size: 20px;
+      }
 
-      margin-top: 60px;
+      span {
+        display: block;
 
-      font-size: 14px;
-      text-align: right;
+        margin-top: 60px;
+
+        font-size: 14px;
+        text-align: right;
+
+        @media (max-width: 768px) {
+          font-size: 10px;
+        }
+      }
     }
   }
 </style>
